@@ -220,8 +220,8 @@ body {
   transition: transform 0.3s ease-out; }
   @media (max-width: 37.5em) {
     .modal-dialog {
-      width: 30rem;
-      margin-left: -15rem;
+      width: 34rem;
+      margin-left: -17rem;
       margin-top: 8rem; } }
 
 .modal-body {
