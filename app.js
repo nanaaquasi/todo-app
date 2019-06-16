@@ -495,7 +495,7 @@ const UICtrl = (function() {
         document.querySelector(UISelectors.recentCount).style.display = 'flex';
       }
       else {
-        document.querySelector('.recent__count').textContent = `No Active Tasks`;
+        document.querySelector('.recent__count').textContent = 'No Active Tasks';
         document.querySelector(UISelectors.recentCount).textContent = count;
         document.querySelector(UISelectors.recentCount).style.display = 'none';
       }
@@ -759,6 +759,8 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl) {
       const items = ItemCtrl.getCompletedTasks()
 
       UICtrl.showCompletedBadge(items.length);
+
+      UICtrl.showRecentBadge(ItemCtrl.getRecentItems.length);
 
       UICtrl.showRecentCount();
 
