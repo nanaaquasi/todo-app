@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Tasks.do | A simple TODO List App</title>
+  <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:400,500,700,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://kit.fontawesome.com/4b69ab2878.js"></script>
+</head>
+<body>
+
+  <section class="main">
+    <div class="logo__box">
+      <img src="img/logo--lg.svg" alt="logo" class="logo">
+    </div>
+    <div class="container">
+      <header class="header">
+        <div class="tasks_details">
+          <h3><span class="dateToday"></span></h3>
+        </div>
+        <div class="tasks__completion">
+          <a href="#" id="incomplete__task">Recent <span class="badge__incomplete"></span></a>
+          <a href="#" id="complete__task">Completed <span class="badge__complete"></span></a>
+        </div>
+      </header>
+      <div class="task__form">
+          <form action="#" class="add__task">
+              <input type="text" class="add__task--input" placeholder="What to do??">
+              <button class="btn add__task--btn">Add Task</button>
+              <button class="btn update__task--btn">Update</button>
+          </form>
+      </div>
+      <div class="content">
+        <ul class="task__list">
+          <!-- <li class="task__list--item" id="task-01">
+            <p>Learn React</p>
+            <div class="control__icons">
+                <a href="#"><i id="check-btn" class="fas fa-check fa-xs"></i></a>
+                <a href="#"><i id="edit-btn" class="fas fa-pen fa-xs"></i></a>
+                <a href="#"><i id="remove-btn" class="fas fa-trash-alt fa-xs"></i></i></a>
+            </div>
+          </li>
+          <li class="task__list--item" id="task-02">
+            Learn Vue.js
+              <div class="control__icons">
+                  <a href="#"><i id="check-btn" class="fas fa-check fa-xs"></i></a>
+                  <a href="#"><i id="edit-btn" class="fas fa-pen fa-xs"></i></a>
+                  <a href="#"><i id="remove-btn" class="fas fa-trash-alt fa-xs"></i></i></a>
+              </div>
+          </li>
+          <li class="task__list--item" id="task-03">
+            Go to the gym at 5 o'clock
+              <div class="control__icons">
+                  <a href="#"><i id="check-btn" class="fas fa-check fa-xs"></i></a>
+                  <a href="#"><i id="edit-btn" class="fas fa-pen fa-xs"></i></a>
+                  <a href="#"><i id="remove-btn" class="fas fa-trash-alt fa-xs"></i></i></a>
+              </div>
+          </li>
+          <li class="task__list--item" id="task-04">
+            Make Profit
+              <div class="control__icons">
+                  <a href="#"><i id="check-btn" class="fas fa-check fa-xs"></i></a>
+                  <a href="#"><i id="edit-btn" class="fas fa-pen fa-xs"></i></a>
+                  <a href="#"><i id="remove-btn" class="fas fa-trash-alt fa-xs"></i></i></a>
+              </div>
+          </li> -->
+        </ul>
+        <div></div>
+      </div>
+      </div>
+      <footer class="footer">
+        <div class="footer__text">
+          <p>Made with  <span><i class="fas fa-heart"></i></span>  by Nana Aquasi &copy; 2019</p>
+        </div>
+       <div class="footer__links">
+        <a href="#"><i class="fab fa-github fa-3x"></i></a>
+        <a href="#"><i class="fab fa-twitter fa-3x"></i></a>  
+        <a href="#"> <i class="fab fa-linkedin fa-3x"></i></a>
+       </div>
+      </footer>
+
+      <div class="modale" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-header">
+            <h2>Oops..task will be removed</h2>
+            <a href="#" class="btn-close closemodale" aria-hidden="true">&times;</a>
+          </div>
+          <div class="modal-body">
+            <button class="btn yes__btn">Yes, Remove</button>
+            <button class="btn no__btn">Nope, mistake</button>
+          <div class="modal-footer">
+            <h3>Make the right decision</h3>
+          </div>
+        </div>
+      </div>
+  
+  </section>
+
+
+  <script src="app.js" type="text/javascript"></script>
+</body>
+</html>

@@ -1,0 +1,299 @@
+.logo__box {
+  width: 15rem;
+  height: 15rem;
+
+  justify-self: center;
+}
+
+.tasks_details {
+  font-size: 1.8rem;
+  margin-left: 2rem;
+  align-self: center;
+
+  @include respond(phone){
+    font-size: 1.6rem;
+  }
+}
+
+.tasks__completion{
+  display: flex;
+  justify-content: center;
+
+  align-self: center;
+
+  a{
+    text-decoration: none;
+    font-size: 1.8rem;
+    color: $font-color;
+    font-weight: 600;
+    // 
+    &:not(:first-child){
+      margin:0 2rem;
+
+    }
+  }
+
+  #complete__task {
+    opacity: .5;
+    position: relative;
+
+  }
+
+  #incomplete__task {
+    position: relative;
+    margin-right: .5rem;
+  }
+}
+
+.add__task {
+  display: flex;
+  align-content: center;
+ 
+  margin-left: 2rem;
+
+  &--input {
+    font-family: inherit;
+    color: inherit;
+    font-size: 1.8rem;
+    border: none;
+    background: $color-grey-light-1;
+    border-radius: 20rem;
+    padding: 1rem 2rem;
+    width: 40%;
+    margin-right: .8rem;
+    transition: all .2s;
+
+    @include respond(phone){
+      width: 60%;
+    }
+
+    
+    &:focus {
+      outline: none;
+      width: 45%;
+
+      @include respond(phone){
+        width: 65%;
+      }
+  }
+
+  &::-webkit-input-placeholder {
+    font-weight: 500;
+    color: $font-color;
+}
+
+  }
+
+  &--btn {
+    color: $color-white;
+    background: $font-color-2;
+  }
+}
+
+.btn {
+    font-family: inherit;
+    font-size: 1.8rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 20rem;
+    padding: 1rem 2rem;
+
+    &:active,
+    &:focus {
+      outline: none;
+    }
+
+}
+
+.update__task--btn {
+  color: $color-white;
+  background: $font-color-3;
+}
+
+.task__list {
+  display: inline-block;
+  display: grid;
+  grid-template-columns: 1fr;
+
+  grid-template-rows: max-content;
+  grid-column-gap: 3px;
+  grid-row-gap: 3px; 
+  margin-top: 2rem;
+  
+  
+
+  &--item {
+    list-style: none;
+    font-size: 2.4rem;
+    font-weight: 400;
+    align-self: center;
+    padding: 1rem;
+    
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    &:not(:last-child){
+      border-bottom: 1px solid $font-color-2--light;
+    }
+
+    @include respond(phone){
+      font-size: 2rem;
+    }
+
+  
+  }
+}
+
+.control__icons {
+  justify-self: end;
+  display: inline;
+
+  a {
+    .fas {
+      color: $font-color-3;
+      margin-left: 1.5rem;
+      // opacity: .5;
+
+      &:hover{
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.badge__complete, .badge__incomplete{
+  font-size: 1rem;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  background-color: $font-color;
+  color: #fff;
+  position: absolute;
+  
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.badge__complete {
+  top: 0;
+  left: 7.4rem;
+}
+
+.badge__incomplete {
+  top: 0;
+  left: 4.8rem;
+}
+
+.completed {
+  font-size: 1.8rem;
+  color: #fff;
+  background: $font-color-2;
+  padding: 2rem 4rem;
+}
+
+.btn-close {
+  color: #aaaaaa;
+  font-size: 2.6rem;
+  text-decoration: none;
+  padding:10px;
+  position: absolute;
+  right: 7px;
+  top: -.4rem;
+
+}
+.btn-close:hover {
+  color: $font-color;
+}
+.modale:before {
+  content: "";
+  display: none;
+  background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+}
+.opened:before {
+  display: block;
+}
+.opened .modal-dialog {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+  top: 20%;
+}
+.modal-dialog {
+  background: #fefefe;
+  border: #333333 solid 0px;
+  border-radius: 5px;
+  margin-left: -200px;
+  text-align:center;
+  position: fixed;
+  left: 50%;
+  top: -100%;
+  z-index: 11;
+  width: 360px;
+  box-shadow:0 5px 10px rgba(0,0,0,0.3);
+  -webkit-transform: translate(0, -500%);
+  -ms-transform: translate(0, -500%);
+  transform: translate(0, -500%);
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  -moz-transition: -moz-transform 0.3s ease-out;
+  -o-transition: -o-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+
+  @include respond(phone){
+    width: 30rem;
+    margin-left: -15rem;
+    margin-top: 8rem;
+  }
+}
+.modal-body {
+  padding: 20px;
+
+  @include respond(phone){
+    padding: 1rem;
+  }
+}
+// .modal-body input{
+//   width:200px;
+//   padding:8px;
+//   border:1px solid #ddd;
+//   color:#888;
+//   outline:0;
+//   font-size:14px;
+//   font-weight:bold
+// }
+.modal-header,
+.modal-footer {
+  padding: 10px 20px;
+
+  @include respond(phone){
+    padding: .5rem 1rem;
+  }
+}
+.modal-header {
+  border-bottom: #eeeeee solid 1px;
+}
+.modal-header h2 {
+  font-size: 2rem;
+
+  @include respond(phone){
+    font-size: 1.6rem;
+  }
+}
+
+.yes__btn, .no__btn {
+
+  font-size: 2rem;
+
+  @include respond(phone){
+    font-size: 1.4rem;
+  }
+}

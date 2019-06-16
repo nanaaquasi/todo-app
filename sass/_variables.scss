@@ -1,0 +1,39 @@
+$color-primary-light: #9fffda;
+$color-primary-dark: #009985;
+
+$color-grey-light: #fefff8;
+$color-grey-light-1: #e6f3f1;
+$color-grey-light-2: #dce5e7;
+$color-grey-dark: #17252a;
+$font-color: #237a57;
+$font-color-2:#60ca95;
+$font-color-2--light:#bbf8da;
+$font-color-3:#ffd256;
+
+$color-white: #feffff;
+$color-black: #000;
+
+@mixin absCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == phone {
+    @media (max-width: 37.5em) { @content };  //600px
+  }
+
+  @if $breakpoint == tab-port {
+    @media (max-width: 56.25em) { @content }; //900px
+  }
+
+  @if $breakpoint == tab-land {
+    @media (max-width: 75em) { @content };  //1200px
+  }
+
+  @if $breakpoint == big-desktop {
+    @media (min-width: 112.5em) { @content }; //1800+
+  }
+}

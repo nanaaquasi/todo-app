@@ -1,0 +1,48 @@
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+
+  @include respond(tab-land){ //width < 1200
+    font-size: 56.25%; //1rem = 9px 9/16*100 
+  }
+
+  @include respond(tab-port){ //width < 900
+    font-size: 60%; // 1 rem = 8px 8/16*100 = 50%
+  }
+
+  @include respond(big-desktop){
+    font-size: 75%; // 1 rem = 12px 12/16 * 100 = 75%
+  }
+}
+
+body {
+  font-family: 'Alegreya Sans', 'Raleway', 'Open Sans';
+  font-weight: 400;
+  line-height: 1.6;
+  // font-size: 1.6rem;
+  color: $font-color;
+  background: whitesmoke;
+  // background-image: linear-gradient(to right bottom, $color-primary-dark, $color-primary-light);
+  // background-size: cover;
+  // background-repeat: no-repeat;
+  // min-height: 80vh; 
+
+  @include respond(tab-land){
+    padding: 4rem;
+  }
+
+  @include respond(phone){
+    min-height: auto;
+    padding: 0;
+    background: $color-grey-light;
+  }
+ 
+}
