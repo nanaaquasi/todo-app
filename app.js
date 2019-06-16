@@ -729,9 +729,12 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl) {
     }
 
     const showRecentTasks = function(){
+
+      UICtrl.hideClearState();
       const items = ItemCtrl.getRecentItems();
 
       if(items.length > 0){
+       
         UICtrl.populateitemsList();
       }else {
         UICtrl.refreshPage();
