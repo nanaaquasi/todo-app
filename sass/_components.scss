@@ -257,9 +257,9 @@
 .modal-body {
   padding: 20px;
 
-  @include respond(phone){
-    padding: 1rem;
-  }
+  // @include respond(phone){
+  //   padding: 1rem;
+  // }
 }
 // .modal-body input{
 //   width:200px;
@@ -274,9 +274,9 @@
 .modal-footer {
   padding: 10px 20px;
 
-  @include respond(phone){
-    padding: .5rem 1rem;
-  }
+  // @include respond(phone){
+  //   padding: .5rem 1rem;
+  // }
 }
 .modal-header {
   border-bottom: #eeeeee solid 1px;
@@ -296,4 +296,8 @@
   @include respond(phone){
     font-size: 1.4rem;
   }
+}
+
+#decision {
+  margin-top: 2rem;
 }

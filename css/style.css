@@ -226,17 +226,10 @@ body {
 
 .modal-body {
   padding: 20px; }
-  @media (max-width: 37.5em) {
-    .modal-body {
-      padding: 1rem; } }
 
 .modal-header,
 .modal-footer {
   padding: 10px 20px; }
-  @media (max-width: 37.5em) {
-    .modal-header,
-    .modal-footer {
-      padding: .5rem 1rem; } }
 
 .modal-header {
   border-bottom: #eeeeee solid 1px; }
@@ -252,6 +245,9 @@ body {
   @media (max-width: 37.5em) {
     .yes__btn, .no__btn {
       font-size: 1.4rem; } }
+
+#decision {
+  margin-top: 2rem; }
 
 .main {
   margin: 6rem auto;

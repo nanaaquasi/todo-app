@@ -385,6 +385,7 @@ const UICtrl = (function() {
         document.querySelector('.modale').classList.remove('opened');
 
      document.querySelector('.no__btn').addEventListener('click', (e) => {
+          e.preventDefault();
           document.querySelector('.modale').classList.remove('opened');
      });
 
