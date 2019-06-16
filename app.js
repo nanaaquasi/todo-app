@@ -502,6 +502,15 @@ const UICtrl = (function() {
     
     },
 
+    hideInputForm(){
+      document.querySelector('.task__form').style.display = 'none';
+    },
+
+    showInputForm(){
+      document.querySelector('.task__form').style.display = 'inline-block';
+    },
+
+
    showTodaysDate: function(date){
       
       let monthNames = [
@@ -562,7 +571,7 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl) {
 
     document.querySelector(UISelectors.recentTask).addEventListener('click', showRecentTasks);
 
-    document.querySelector('.clear__all').addEventListener('click', clearCompleted);
+    document.querySelector('.clear__task--btn').addEventListener('click', clearCompleted);
 
 
 
@@ -708,11 +717,12 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl) {
       if(count !== 0){
       
        UICtrl.populateCompleted(completed);
+       UICtrl.hideInputForm();
        UICtrl.showClearState();
       }
-      else {
-        console.log('No recent tasks');
-      }
+      // else {
+      //   console.log('No recent tasks');
+      // }
 
     }
 
