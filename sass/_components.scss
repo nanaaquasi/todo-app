@@ -1,8 +1,18 @@
 .logo__box {
-  width: 15rem;
-  height: 15rem;
+  // width: 5rem;
+  // height: 5rem;
+  margin-bottom: 4rem;
 
   justify-self: center;
+
+  .logo{
+    width: 18rem;
+    margin-bottom: 4rem;
+
+    @include respond(phone){
+      width: 15rem;
+    }
+  }
 }
 
 .tasks_details {

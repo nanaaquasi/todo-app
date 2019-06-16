@@ -33,9 +33,14 @@ body {
       padding: 0; } }
 
 .logo__box {
-  width: 15rem;
-  height: 15rem;
+  margin-bottom: 4rem;
   justify-self: center; }
+  .logo__box .logo {
+    width: 18rem;
+    margin-bottom: 4rem; }
+    @media (max-width: 37.5em) {
+      .logo__box .logo {
+        width: 15rem; } }
 
 .tasks_details {
   font-size: 1.8rem;
@@ -274,7 +279,7 @@ body {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 6rem 1fr min-content;
-  grid-row-gap: .8rem; }
+  grid-row-gap: 2rem; }
 
 @media (max-width: 37.5em) {
   margin: 1rem auto;
