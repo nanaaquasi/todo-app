@@ -60,7 +60,7 @@ body {
     .tasks__completion a:not(:first-child) {
       margin: 0 2rem; }
   .tasks__completion #complete__task {
-    opacity: .5;
+    opacity: 1;
     position: relative; }
   .tasks__completion #incomplete__task {
     position: relative;
@@ -119,7 +119,7 @@ body {
   grid-template-rows: max-content;
   grid-column-gap: 3px;
   grid-row-gap: 3px;
-  margin-top: 2rem; }
+  margin-top: 4rem; }
   .task__list--item {
     list-style: none;
     font-size: 2.4rem;
@@ -158,7 +158,7 @@ body {
 
 .badge__complete {
   top: 0;
-  left: 7.4rem; }
+  left: 7.9rem; }
 
 .badge__incomplete {
   top: 0;
@@ -168,7 +168,8 @@ body {
   font-size: 1.8rem;
   color: #fff;
   background: #60ca95;
-  padding: 2rem 4rem; }
+  padding: 1rem;
+  text-align: center; }
 
 .btn-close {
   color: #ff9956;
@@ -211,6 +212,7 @@ body {
   border-radius: 5px;
   margin-left: -200px;
   text-align: center;
+  color: #237a57;
   position: fixed;
   left: 50%;
   top: -100%;
@@ -228,8 +230,7 @@ body {
     .modal-dialog {
       width: 34rem;
       margin-left: -17rem;
-      margin-top: 8rem;
-      color: #237a57; } }
+      margin-top: 8rem; } }
 
 .modal-body {
   padding: 20px; }
@@ -255,6 +256,16 @@ body {
 
 #decision {
   margin-top: 2rem; }
+
+.clear__all {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); }
+
+.clear__task--btn {
+  background: #ff9956;
+  justify-self: flex-end;
+  color: white;
+  margin-right: 3rem; }
 
 .main {
   margin: 6rem auto;

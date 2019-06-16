@@ -19,6 +19,7 @@
       <header class="header">
         <div class="tasks_details">
           <h3><span class="dateToday"></span></h3>
+          <p class="recent__count"></p>
         </div>
         <div class="tasks__completion">
           <a href="#" id="incomplete__task">Recent <span class="badge__incomplete"></span></a>
@@ -33,7 +34,12 @@
           </form>
       </div>
       <div class="content">
+          <div class="clear__all">
+              <p class="completed">Completed Tasks</p>
+              <button class="btn clear__task--btn">Clear All</button>
+          </div>
         <ul class="task__list">
+            
           <!-- <li class="task__list--item" id="task-01">
             <p>Learn React</p>
             <div class="control__icons">

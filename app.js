@@ -3,7 +3,7 @@ const StorageCtrl = (function(){
   return {
     storeItem: function(task){
 
-      let tasks;;
+      let tasks;
       if(localStorage.getItem('tasks') === null){
         tasks = [];
         tasks.push(task);
@@ -43,8 +43,9 @@ const StorageCtrl = (function(){
 
       localStorage.setItem('tasks', JSON.stringify(tasks));
     },
-   
 
+    
+   
     deleteStorageItem: function(id){
       const tasks= JSON.parse(localStorage.getItem('tasks'));
 
@@ -57,6 +58,19 @@ const StorageCtrl = (function(){
       localStorage.setItem('tasks', JSON.stringify(tasks));
     },
 
+    deleteFromRecent: function(id){
+      const tasks= JSON.parse(localStorage.getItem('tasks'));
+
+      tasks.forEach((task, index) => {
+        if(task.id === id){
+          tasks.splice(index, 1);
+        }
+      })
+
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    },
+
+   
     setCompleted: function(completeTask){
       const tasks = JSON.parse(localStorage.getItem('tasks'));
 
@@ -70,6 +84,46 @@ const StorageCtrl = (function(){
 
       localStorage.setItem('tasks', JSON.stringify(tasks));
     },
+
+    storeCompleted: function(completed){
+      let completedTasks;
+      if(localStorage.getItem('completedTasks') === null){
+        completedTasks = [];
+        completedTasks.push(completed);
+
+        localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+      } else {
+        const completedTasks = JSON.parse(localStorage.getItem('completedTasks'));
+
+        completedTasks.push(completed);
+
+        localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+
+      }
+    },
+
+    getCompletedFromStore:  function() {
+      let completedTasks;
+      if(localStorage.getItem('completedTasks') === null){
+
+        completedTasks = [];
+
+      } else{
+        completedTasks = JSON.parse(localStorage.getItem('completedTasks'));
+      }
+
+      return completedTasks;
+    },
+
+
+    clearItemsFromStorage: function(){
+      let completedTasks = JSON.parse(localStorage.getItem('completedTasks'));
+
+      completedTasks = [];
+
+      localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+    },
+
 
 
   }
@@ -85,6 +139,7 @@ const ItemCtrl = (function() {
 
   const data = {
     tasks: StorageCtrl.getItemsFromStore(),
+    completedTasks: StorageCtrl.getCompletedFromStore(),
     
     // tasks: [
     //   {id: 0, task: "Learn React", isCompleted: false},
@@ -99,21 +154,21 @@ const ItemCtrl = (function() {
     return data.tasks;
   },
 
-  // getRecentItems: function(){
+  getRecentItems: function(){
 
-  //   const items = data.tasks;
+    const items = ItemCtrl.getItems();
 
-  //   let recent = [];
+    let recent = [];
 
-  //   items.forEach(item => {
-  //     if(item.isCompleted === false){
-  //       recent.push(item);
-  //     }
-  //   })
+    items.forEach(item => {
+      if(item.isCompleted === false){
+        recent.push(item);
+      }
+    })
 
-  //   return recent;
+    return recent;
    
-  // },
+  },
 
   addItem: function(task){
     let ID;
@@ -174,10 +229,8 @@ const ItemCtrl = (function() {
     })
 
     const index = ids.indexOf(itemToDelete.id);
-
     
     data.tasks.splice(index, 1);
-
     
     StorageCtrl.deleteStorageItem(itemToDelete.id);
 
@@ -185,11 +238,24 @@ const ItemCtrl = (function() {
 
     UICtrl.deleteListItem(itemToDelete.id);
 
-   
-     
-    // if (document.querySelector('.yes')) {
-    //    data.tasks.splice(index, 1);
-    // }  
+    UICtrl.showRecentCount();
+
+  },
+
+  removeItemFromRecent: function(item){
+    const ids = data.tasks.map(item => {
+      return item.id;
+    })
+
+    const index = ids.indexOf(item.id);
+    
+    data.tasks.splice(index, 1);
+    
+    StorageCtrl.deleteFromRecent(item.id);
+  },
+
+  clearAllItems: function(){
+      data.completedTasks = [];
   },
 
   setCurrentItem: function(item){
@@ -209,17 +275,9 @@ const ItemCtrl = (function() {
   },
 
   getCompletedTasks: function(){
-    let items = ItemCtrl.getItems();
+    return data.completedTasks;
 
-    const completedTasks = [];
-
-    items.forEach(item => {
-      if(item.isCompleted === true){
-        completedTasks.push(item);
-      }
-    })
-
-    return completedTasks;
+    // console.log(completedTasks);
   },
 
   logData: function(){ 
@@ -280,42 +338,51 @@ const UICtrl = (function() {
       const items = ItemCtrl.getItems();
 
       let output = '';
-
       items.forEach(item => {
-        output += `
-        <li class="task__list--item" id="task-${item.id}">
-        <p>${item.task}</p>
-        <div class="control__icons">
-            <a href="#"><i id="check-btn" class="check-item fas fa-check fa-xs"></i></a>
-            <a href="#"><i id="edit-btn" class="edit-item fas fa-pen fa-xs"></i></a>
-            <a href="#"><i id="remove-btn" class="remove-item openmodale fas fa-trash-alt fa-xs"></i></i></a>
-        </div>
-      </li>
-        `
-        document.querySelector(UISelectors.itemsList).innerHTML = output;
+        let count = items.length;
+        if(item.isCompleted === false && count > 0){
+          output += `
+          <li class="task__list--item" id="task-${item.id}">
+          <p>${item.task}</p>
+          <div class="control__icons">
+              <a href="#"><i id="check-btn" class="check-item fas fa-check fa-xs"></i></a>
+              <a href="#"><i id="edit-btn" class="edit-item fas fa-pen fa-xs"></i></a>
+              <a href="#"><i id="remove-btn" class="remove-item openmodale fas fa-trash-alt fa-xs"></i></i></a>
+          </div>
+        </li>
+          `
+          document.querySelector(UISelectors.itemsList).innerHTML = output;
+        }
+     
 
       })
     },
 
-    populateCompleted: function(items){
-      let output = `<p class="completed">Completed Tasks</p>`;
+    populateCompleted: function(items){   
+      let output = ``;
 
       items.forEach(item => {
-        
         output += `
         
         <li class="task__list--item" id="task-01">
-        <p>${item.task}</p>
-        <div class="control__icons">
-            <a href="#"><i id="check-btn" class="check-item fas fa-check fa-xs"></i></a>
-            <a href="#"><i id="edit-btn" class="edit-item fas fa-pen fa-xs"></i></a>
-            <a href="#"><i id="remove-btn" class="remove-item openmodale fas fa-trash-alt fa-xs"></i></i></a>
-        </div>
-      </li>
+        <p>${item.task}</p>       
+        </li>
         `
         document.querySelector(UISelectors.itemsList).innerHTML = output;
-
       });
+
+      
+    },
+
+    showRecentCount: function(){
+      const recent = ItemCtrl.getRecentItems();
+
+      let count = recent.length;
+
+      if(count > 0){
+        UICtrl.showRecentBadge(count);
+      }
+
     },
 
     // removeListItem: function(id){
@@ -359,6 +426,16 @@ const UICtrl = (function() {
 
   },
 
+  removeListItems: function(){
+    let listItems = document.querySelectorAll(UISelectors.listItems)
+
+    listItems = Array.from(listItems);
+
+    listItems.forEach(listItem => {
+      listItem.remove();
+    })
+  },
+
   addItemToForm: function(){
       const item = ItemCtrl.getCurrentItem();
 
@@ -377,6 +454,14 @@ const UICtrl = (function() {
      document.querySelector(UISelectors.addBtn).style.display = 'inline';
     },
 
+  hideClearState: function(){
+    document.querySelector('.clear__all').style.display = 'none';
+  },
+
+  showClearState: function(){
+    document.querySelector('.clear__all').style.display = 'grid';
+  },
+
   showModal: function(){
       document.querySelector('.modale').classList.add('opened');
     
@@ -392,13 +477,29 @@ const UICtrl = (function() {
     },
 
     showCompletedBadge: function(count){
-      document.querySelector(UISelectors.completedCount).textContent = count;
-      document.querySelector(UISelectors.completedCount).style.display = 'flex';
+      if(count > 0){
+        document.querySelector(UISelectors.completedCount).textContent = count;
+        document.querySelector(UISelectors.completedCount).style.display = 'flex';    
+      }
+      else {
+        document.querySelector(UISelectors.completedCount).textContent = count;
+        document.querySelector(UISelectors.completedCount).style.display = 'none'; 
+      }
+      
     },
 
     showRecentBadge: function(count){
-      document.querySelector(UISelectors.recentCount).textContent = count;
-      document.querySelector(UISelectors.recentCount).style.display = 'flex';
+      if(count > 0){
+        document.querySelector('.recent__count').textContent = `${count} Active Tasks`;
+        document.querySelector(UISelectors.recentCount).textContent = count;
+        document.querySelector(UISelectors.recentCount).style.display = 'flex';
+      }
+      else {
+        document.querySelector('.recent__count').textContent = `No Active Tasks`;
+        document.querySelector(UISelectors.recentCount).textContent = count;
+        document.querySelector(UISelectors.recentCount).style.display = 'none';
+      }
+    
     },
 
    showTodaysDate: function(date){
@@ -418,6 +519,10 @@ const UICtrl = (function() {
 
       document.querySelector(UISelectors.taskDetails).textContent = dateToday;
   
+  },
+
+  refreshPage: function(){
+    window.location.reload();
   },
 
     clearInput: function(){
@@ -453,15 +558,12 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl) {
 
     document.querySelector('.yes__btn').addEventListener('click', ItemCtrl.deleteItem);
 
+    document.querySelector(UISelectors.completedTask).addEventListener('click', showCompletedTasks);
 
+    document.querySelector(UISelectors.recentTask).addEventListener('click', showRecentTasks);
 
- 
+    document.querySelector('.clear__all').addEventListener('click', clearCompleted);
 
-
-
-    // document.querySelector(UISelectors.completedTask).addEventListener('click', showCompletedTasks);
-
-    // document.querySelector(UISelectors.recentTask).addEventListener('click', showRecentTasks);
 
 
     
@@ -477,6 +579,8 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl) {
     StorageCtrl.storeItem(newTask);
 
     UICtrl.addListItem(newTask);
+
+    UICtrl.showRecentCount();
 
     UICtrl.clearInput();
 
@@ -504,6 +608,18 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl) {
     // console.log(completedTask);
 
     StorageCtrl.setCompleted(completedTask);
+
+    StorageCtrl.storeCompleted(completedTask);
+
+    ItemCtrl.removeItemFromRecent(ItemCtrl.getCurrentItem());
+
+    UICtrl.refreshPage();
+
+    UICtrl.showCompletedBadge();
+
+    UICtrl.showRecentBadge();
+
+    UICtrl.deleteListItem(itemToEdit.id);
 
     }
 
@@ -545,6 +661,8 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl) {
 
     UICtrl.updateListItem(updatedItem);
 
+    UICtrl.showRecentCount();
+
     UICtrl.clearInput();
 
     UICtrl.hideEditState();
@@ -570,9 +688,6 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl) {
 
      UICtrl.showModal();
 
-
-
-
     }
 
   
@@ -585,40 +700,44 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl) {
 
 // }
 
-    // const showCompletedTasks = function(){
-    //   const completed = ItemCtrl.getCompletedTasks();
+    const showCompletedTasks = function(){
+      const completed = ItemCtrl.getCompletedTasks();
 
-    //   let count = completed.length;
+      let count = completed.length;
 
-    //   if(count !== 0){
-    //   //  UICtrl.removeListItem(completed); 
-    //    UICtrl.showCompletedBadge(count);
-    //    UICtrl.populateCompleted(completed);
-    //   }
+      if(count !== 0){
+      
+       UICtrl.populateCompleted(completed);
+       UICtrl.showClearState();
+      }
+      else {
+        console.log('No recent tasks');
+      }
 
-    // }
+    }
 
-    // const showRecentTasks = function(){
-    //   let recent = ItemCtrl.getRecentItems();
+    const clearCompleted = function(){
+      ItemCtrl.clearAllItems();
 
-    //   let count = recent.length;
+      UICtrl.removeListItems();
 
-    //   if(count !== 0){
-    //     //  UICtrl.removeListItem(completed); 
-    //      UICtrl.showRecentBadge(count);
-    //      UICtrl.populateitemsList();
-    //     }
-    //     else{
-    //       let h3 = document.createElement('h3');
+      StorageCtrl.clearItemsFromStorage();
 
-    //       let text = document.createTextNode(" No recent tasks");
+      UICtrl.hideClearState();
 
-    //       h3.appendChild(text);
+      UICtrl.showCompletedBadge();
+    }
 
-    //       document.querySelector('.task__list').innerHTML = h3;
-    //     }
+    const showRecentTasks = function(){
+      const items = ItemCtrl.getRecentItems();
 
-    // }
+      if(items.length > 0){
+        UICtrl.populateitemsList();
+      }else {
+        UICtrl.refreshPage();
+      }
+      
+    }
   
 
   return {
@@ -626,14 +745,19 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl) {
 
       UICtrl.hideEditState();
 
+      UICtrl.hideClearState();
+
       UICtrl.populateitemsList();
       
       loadEventListeners();
 
       UICtrl.showTodaysDate(new Date());
 
-      
-      
+      const items = ItemCtrl.getCompletedTasks()
+
+      UICtrl.showCompletedBadge(items.length);
+
+      UICtrl.showRecentCount();
 
     }
   }
