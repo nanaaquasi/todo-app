@@ -24,6 +24,7 @@
   background-color: $color-grey-light;
   box-shadow: 0 1rem 3rem rgba(0,0,0,.2);
   grid-template-rows: 6rem 6rem 1fr;
+  color: $font-color;
   // border-radius: 4.1rem;
 
   @include respond(tab-land){
@@ -32,6 +33,9 @@
 
   @include respond(phone){
     box-shadow: none;
+    background-color: rgb(0, 98, 110);
+    color: $color-grey-light;
+
   }
 
 }
@@ -48,7 +52,7 @@
 }
 
 .task__form{
-  background-color: $color-grey-light;
+  // background-color: $color-grey-light;
   // box-shadow: 0 2rem 6rem rgba(0,0,0,.3);
   margin-top: 2rem;
 }
@@ -62,11 +66,18 @@
   padding: 2rem;
   margin-top: 4rem;
 
+  .fas{
+    @include respond(phone){
+      color: lightsalmon;
+    }
+  }
+
   &__text {
     font-size: 1.8rem;
 
     @include respond(phone){
       font-size: 1.8rem;
+      color: $font-color-2--light;
     }
   }
 
@@ -75,7 +86,7 @@
     a {
 
       .fab {
-        color: $color-grey-dark;
+        color: $font-color-2;
         margin: 1rem 0 0 1rem;
 
         @include respond(phone){

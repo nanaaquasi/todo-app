@@ -28,8 +28,8 @@ body {
   font-weight: 400;
   line-height: 1.6;
   // font-size: 1.6rem;
-  color: $font-color;
-  background: whitesmoke;
+  color: white;
+  background: rgb(0, 98, 110);
   // background-image: linear-gradient(to right bottom, $color-primary-dark, $color-primary-light);
   // background-size: cover;
   // background-repeat: no-repeat;
@@ -42,7 +42,7 @@ body {
   @include respond(phone){
     min-height: auto;
     padding: 0;
-    background: $color-grey-light;
+    // background: $color-grey-light;
   }
  
 }
